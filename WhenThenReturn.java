@@ -1,7 +1,8 @@
 public class Triangle{
   private int area;
   
-  //getter & setter
+  public int getArea(){ return area; }
+  public void setArea(int area){ this.area = area; }
 }
 
 public class MathService {
@@ -25,6 +26,11 @@ public class MathServiceTest {
   public void shouldSuccessWhenCalculateMath(){
     when(triangle.getArea()).thenReturn(35);
     service.calculateMath(triangle);
+    
+    // unit test getter & setter
+    //when(triangle.getArea()).thenReturn(55);
+    //doCallRealMethod().when(triangle).setArea(55);
+    
     assertEquals(triangle.getArea(), 35);
   }
 }
