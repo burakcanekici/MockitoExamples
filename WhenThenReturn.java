@@ -31,6 +31,10 @@ public class MathServiceTest {
     //when(triangle.getArea()).thenReturn(55);
     //doCallRealMethod().when(triangle).setArea(55);
     
-    assertEquals(triangle.getArea(), 35);
+    //assertEquals(triangle.getArea(), 35);
+    
+    //check the result for the void methods
+    verify(triangle).setArea(any(Integer.class));
+    verify(triangle).getArea();
   }
 }
