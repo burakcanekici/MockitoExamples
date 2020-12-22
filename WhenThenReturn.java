@@ -10,7 +10,7 @@ public class MathService {
     Triangle t1 = new Triangle();
     t1.setArea(35);
   
-    t.setArea(t1.getArea())
+    t.setArea(t1.getArea());
   }
 }
 
