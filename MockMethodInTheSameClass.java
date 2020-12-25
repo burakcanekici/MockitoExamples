@@ -29,7 +29,7 @@ public class MathService {
       return 0;
     }
     
-    Integer area = calculateArea(t);
+    Integer area = this.calculateArea(t);
     return area;
   }
 }
