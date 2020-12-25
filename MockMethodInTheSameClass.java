@@ -37,6 +37,8 @@ public class MathService {
 public class MathServiceTest {
 
   // using @InjectMocks and @Spy annotations is essential for accessing the isValidShape method in the same class
+  // we mock the MathService object by using the @InjectMocks annotation
+  // also, thanks to @Spy annotation, we access to the instance of MathService object for mocking the isValidShape and calculateArea methods
   @InjectMocks
   @Spy
   private MathService service;
