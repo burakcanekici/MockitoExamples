@@ -12,14 +12,14 @@ public class Rectangle{
 public class MathService {
   
   public Boolean isValidShape(Rectangle rectangle){
-    if(rectangle.getHeight < 0 || rectangle.getWidth < 0){
+    if(rectangle.getHeight() < 0 || rectangle.getWidth() < 0){
       return false;
     }
     return true;
   }
   
   public Integer calculateArea(Rectangle rectangle){
-    Integer area = (rectangle.getHeight * rectangle.getWidth);
+    Integer area = (rectangle.getHeight() * rectangle.getWidth());
     return area;
   }
   
