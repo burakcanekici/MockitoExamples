@@ -9,54 +9,53 @@ public class Rectangle{
   ...
 }
 
+public class Calculation {
+    public static Integer calculateArea(Rectangle rectangle){
+        Integer area = (rectangle.getHeight() * rectangle.getWidth());
+        return area;
+    }
+}
+
 public class MathService {
-  
-  public Boolean isValidShape(Triangle t){
-    if(t.getHeight < 0 || t.getWidth < 0){
-      return false;
-    }
-    return true;
-  }
-  
-  public Integer calculateArea(Triangle t){
-    Integer area = (t.getHeight * t.getWidth);
-    return area;
-  }
-  
-  public Integer checkAndCalculateArea(Triangle t){
-    Boolean isValid = this.isValidShape(t);
-    if(!isValid){
-      return 0;
-    }
-    
-    Integer area = this.calculateArea(t);
-    return area;
-  }
+
+   public Boolean checkAndCalculateArea(Rectangle rectangle){
+      if(rectangle.getHeight() < 0 || rectangle.getWidth() < 0){
+          return false;
+      }
+
+      // In here, the calculateArea() method is a static method and it is called
+      Integer area = Calculation.calculateArea(rectangle);
+      rectangle.setArea(area);
+     
+      return true;
+   }
 }
 
 public class MathServiceTest {
 
-  // using @InjectMocks and @Spy annotations is essential for accessing the isValidShape method in the same class
-  // we mock the MathService object by using the @InjectMocks annotation
-  // also, thanks to @Spy annotation, we access to the instance of MathService object for mocking the isValidShape and calculateArea methods
   @InjectMocks
-  @Spy
-  private MathService service;
+  private MathService mathService;
 
   @Mock
-  private Triangle triangle;
+  private Rectangle rectangle;
 
   @Test
-  public void shouldSuccessWhenCalculateMath(){
-    // the method above make the real isValidShape method return true without executing itself
-    doReturn(true).when(service).isValidShape(triangle);
-    
-    // the method above make the real calculateArea method return an integer we want - which set to 35 in here
-    doReturn(35).when(service).calculateArea(triangle);
-    
-    Integer area = service.calculateArea(triangle);
-    
-    // since we set that return 35 when the calculateArea method is triggered, it will return 35 and we should check this value
-    assertEquals(area, 35);
+  public void shouldSuccessWhenCheckAndCalculateArea(){
+    // during the testing checkAndCalculateArea() method, to mocking the static method Calculation.calculateArea in the MathService class,
+    // the MockedStatic type should be used to handle it in try block. Also, it mocks a bit different from what we have already done. We
+    // return a value whenever it called by using the MockedStatic type.
+    try (MockedStatic<Calculation> mockedStatic = Mockito.mockStatic(Calculation.class)) {
+      // to preventing return the false from the checkAndCalculateArea method, getters set to a value 
+      doReturn(5).when(rectangle).getHeight();
+      doReturn(7).when(rectangle).getWidth();
+      
+      // the static Calculation.calculateArea method sets to 35, which means are will be set to 35 in the checkAndCalculateArea method
+      mockedStatic.when(() -> Calculation.calculateArea(rectangle)).thenReturn(35);
+
+      Boolean result = mathService.checkAndCalculateArea(rectangle);
+
+      // the result that return from the checkAndCalculateArea method is expected as true
+      assertEquals(result, true);
+    }
   }
 }
