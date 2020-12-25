@@ -11,25 +11,25 @@ public class Rectangle{
 
 public class MathService {
   
-  public Boolean isValidShape(Triangle t){
-    if(t.getHeight < 0 || t.getWidth < 0){
+  public Boolean isValidShape(Rectangle rectangle){
+    if(rectangle.getHeight < 0 || rectangle.getWidth < 0){
       return false;
     }
     return true;
   }
   
-  public Integer calculateArea(Triangle t){
-    Integer area = (t.getHeight * t.getWidth);
+  public Integer calculateArea(Rectangle rectangle){
+    Integer area = (rectangle.getHeight * rectangle.getWidth);
     return area;
   }
   
-  public Integer checkAndCalculateArea(Triangle t){
-    Boolean isValid = this.isValidShape(t);
+  public Integer checkAndCalculateArea(Rectangle rectangle){
+    Boolean isValid = this.isValidShape(rectangle);
     if(!isValid){
       return 0;
     }
     
-    Integer area = this.calculateArea(t);
+    Integer area = this.calculateArea(rectangle);
     return area;
   }
 }
@@ -44,17 +44,17 @@ public class MathServiceTest {
   private MathService service;
 
   @Mock
-  private Triangle triangle;
+  private Rectangle rectangle;
 
   @Test
   public void shouldSuccessWhenCalculateMath(){
     // the method above make the real isValidShape method return true without executing itself
-    doReturn(true).when(service).isValidShape(triangle);
+    doReturn(true).when(service).isValidShape(rectangle);
     
     // the method above make the real calculateArea method return an integer we want - which set to 35 in here
-    doReturn(35).when(service).calculateArea(triangle);
+    doReturn(35).when(service).calculateArea(rectangle);
     
-    Integer area = service.calculateArea(triangle);
+    Integer area = service.calculateArea(rectangle);
     
     // since we set that return 35 when the calculateArea method is triggered, it will return 35 and we should check this value
     assertEquals(area, 35);
