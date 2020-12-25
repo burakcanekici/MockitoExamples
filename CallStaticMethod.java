@@ -46,8 +46,8 @@ public class MathServiceTest {
     // return a value whenever it called by using the MockedStatic type.
     try (MockedStatic<Calculation> mockedStatic = Mockito.mockStatic(Calculation.class)) {
       // to preventing return the false from the checkAndCalculateArea method, getters set to a value 
-      doReturn(5).when(rectangle).getHeight();
-      doReturn(7).when(rectangle).getWidth();
+      doReturn(1).when(rectangle).getHeight();
+      doReturn(1).when(rectangle).getWidth();
       
       // the static Calculation.calculateArea method sets to 35, which means are will be set to 35 in the checkAndCalculateArea method
       mockedStatic.when(() -> Calculation.calculateArea(rectangle)).thenReturn(35);
